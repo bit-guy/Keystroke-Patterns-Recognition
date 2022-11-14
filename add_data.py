@@ -3,13 +3,13 @@ from timeit import default_timer as timer
 import string
 import pandas as pd
 
+data_path = "dataset/data.csv"
 char = list(string.printable[:-3]) # 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~ \t\n
 keyTimestamp = [] # list of timestamp for each key release
-paragraph = "abcdef"*100
 
 def get_paragraph():
     df = pd.read_csv("dataset/paragraph.csv")
-    return df["Paragraph"].sample(1).values[0]
+    return df["Paragraph"].sample(1).values[0].replace("\\n", "")
 
 def save_data():
     # get data from input
@@ -25,11 +25,11 @@ def save_data():
     map = {key: (sum(val)/len(val)) for key,val in Digraph.items() if Digraph[key] != []}
     map['class'] = nameVal
     
-    # append data to dataset/data.csv
-    df = pd.read_csv('dataset/data.csv')
+    # append data to data_path    
+    df = pd.read_csv(data_path)
     df2 = pd.Series(map)
     df = df.append(df2, ignore_index=True)
-    df.to_csv("dataset/data.csv", index=False)
+    df.to_csv(data_path, index=False)
 
     print('Saved')
     window.destroy()

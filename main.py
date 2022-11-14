@@ -6,23 +6,21 @@ import numpy as np
 from scipy import stats
 from sklearn.metrics.pairwise import nan_euclidean_distances
 
+data_path = "dataset/data.csv"
 char = list(string.printable[:-3])
 # 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~ \t\n
 keyTimestamp = [] # list of timestamp for each key release
-data_path = "dummy_dataset/data.csv"
 
 def knn(x_data, y_data, test_data, k):
     result = nan_euclidean_distances(x_data,[test_data])
-    argmin_k = np.argsort(result, axis=0)[:k]
-    print(result)
-    print(argmin_k)
-    return stats.mode([y_data[i] for i in argmin_k])[0]
+    argmin = np.argsort(result, axis=0)
+    return stats.mode([y_data[i] for i in argmin[:k]])[0]
 
 def get_paragraph():
     df = pd.read_csv("dataset/paragraph.csv")
-    return df["Paragraph"].sample(1).values[0]
+    return df["Paragraph"].sample(1).values[0].replace("\\n", "")
 
-def get_sentence():
+def recognizer():
     textVal = (inputText.get('1.0', tk.END))[:-1]
     Digraph = dict()
     for i in char:
@@ -37,9 +35,9 @@ def get_sentence():
     test_data = pd.Series(new_dict)
     y_data = train_data.pop('class')
     x_data = train_data[test_data.index]
-    print(knn(y_data, x_data, test_data, k=3))
+    prediction = knn(x_data, y_data, test_data, k=3)
+    print(f"Recognize you as: {prediction[0][0]}")
 
-    print('Saved')
     window.destroy()
 
 window = tk.Tk()
@@ -67,7 +65,7 @@ inputText.pack(padx=10, pady=5)
 
 button = tk.Button(window, 
     text = "DONE", 
-    command = get_sentence,
+    command = recognizer,
     width = 5, 
     bg = 'grey'
     )
