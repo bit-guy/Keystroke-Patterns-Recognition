@@ -12,10 +12,10 @@ This will empty the keystroke data in dataset ("dataset/data.csv").
 ~~~
 $ python add_data.py
 ~~~
-This will activate GUI for typing (using tkinter). By typing in the textbox below, the program will store the typing rhythm and generating a new row of data in the dataset. After entering user's full name or "class", the data will then append to the dataset.
+This will activate GUI for typing (using [tkinter](https://docs.python.org/3/library/tkinter.html)). By typing in the textbox below, the program will store the typing rhythm and generating a new row of data in the dataset. After entering user's full name or "class", the data will then append to the dataset.
 ## GUI for Typing
 
-Keystroke Patterns Recognition\images\gui_addData.png
+![image](https://github.com/Gyoowai/Keystroke-Patterns-Recognition/blob/master/images/gui_addData.png)
 
 ---
 ## Using recognizer
@@ -24,7 +24,7 @@ $ python main.py
 ~~~
 Same as adding data, this will activate GUI for typing and collecting typing rhythm to match classes in the dataset. After clicking "DONE", the result will be shown in the command line output.
 
-Keystroke Patterns Recognition\images\result.png
+![image](https://github.com/Gyoowai/Keystroke-Patterns-Recognition/blob/master/images/result.png)
 
 ---
 2110413 Computer Security, Department of Computer Engineering, Chulalongkorn University
